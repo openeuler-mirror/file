@@ -1,0 +1,46 @@
+From b54c273435c873b1446730c1d2c609bece2c2f22 Mon Sep 17 00:00:00 2001
+From: Christos Zoulas <christos@zoulas.com>
+Date: Sat, 11 Aug 2018 12:17:37 +0000
+Subject: [PATCH 043/185] PR/25: cbiedl: Avoid strength underflow.
+
+---
+ src/apprentice.c | 9 ++++++-----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/src/apprentice.c b/src/apprentice.c
+index 45cf2a9..4d8a3de 100644
+--- a/src/apprentice.c
++++ b/src/apprentice.c
+@@ -841,7 +841,8 @@ private size_t
+ apprentice_magic_strength(const struct magic *m)
+ {
+ #define MULT 10
+-	size_t ts, v, val = 2 * MULT;	/* baseline strength */
++	size_t ts, v;
++	ssize_t val = 2 * MULT;	/* baseline strength */
+ 
+ 	switch (m->type) {
+ 	case FILE_DEFAULT:	/* make sure this sorts last */
+@@ -947,9 +948,6 @@ apprentice_magic_strength(const struct magic *m)
+ 		abort();
+ 	}
+ 
+-	if (val == 0)	/* ensure we only return 0 for FILE_DEFAULT */
+-		val = 1;
+-
+ 	switch (m->factor_op) {
+ 	case FILE_FACTOR_OP_NONE:
+ 		break;
+@@ -969,6 +967,9 @@ apprentice_magic_strength(const struct magic *m)
+ 		abort();
+ 	}
+ 
++	if (val <= 0)	/* ensure we only return 0 for FILE_DEFAULT */
++		val = 1;
++
+ 	/*
+ 	 * Magic entries with no description get a bonus because they depend
+ 	 * on subsequent magic entries to print something.
+-- 
+1.8.3.1
+
