@@ -1,6 +1,6 @@
 Name:          file
 Version:       5.34
-Release:       6
+Release:       7
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
@@ -16,6 +16,10 @@ Patch6001:     6001-PR-25-cbiedl-Avoid-strength-underflow.patch
 Patch6002:     6002-Fix-indirect-offset-overflow-calculation-B.-Watson.patch
 
 Patch3:        0003-file-5.34-readelf.patch
+
+Patch6003:     6003-CVE-2019-18218.patch
+Patch6004:     6004-Use-memmem-to-speed-up-searches-if-available-Michael.patch
+Patch6005:     6005-Simplify-and-always-return-if-not-found-found-by-OSS.patch
 
 Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: autoconf automake libtool git zlib-devel
@@ -157,6 +161,9 @@ cd %{py3dir}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Tue Dec 24 2019 openEuler Buildteam <buildteam@openeuler.org> - 5.34-7
+- some bugs fix
+
 * Wed Sep 11 2019 huangzheng <huangzheng22@huawei.com> - 5.34-6
 - Type:enhancement
 - ID:NA
