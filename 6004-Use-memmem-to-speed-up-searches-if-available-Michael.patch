@@ -15,11 +15,11 @@ index ec296aa4..402f75dd 100644
 +++ b/configure.ac
 @@ -151,7 +151,7 @@ else
  fi])
-
+ 
  dnl Checks for functions
 -AC_CHECK_FUNCS(strerror strndup strtoul mkstemp mkostemp utimes utime wcwidth strtof newlocale uselocale freelocale setlocale)
 +AC_CHECK_FUNCS(strerror strndup strtoul mkstemp mkostemp utimes utime wcwidth strtof newlocale uselocale freelocale setlocale memmem)
-
+ 
  dnl Provide implementation of some required functions if necessary
  AC_REPLACE_FUNCS(getopt_long asprintf vasprintf strlcpy strlcat getline ctime_r asctime_r localtime_r gmtime_r pread strcasestr fmtcheck dprintf)
 diff --git a/src/softmagic.c b/src/softmagic.c
@@ -28,43 +28,43 @@ index cfc17812..9999ef6f 100644
 +++ b/src/softmagic.c
 @@ -32,7 +32,7 @@
  #include "file.h"
-
- #ifndef        lint
+ 
+ #ifndef	lint
 -FILE_RCSID("@(#)$File: softmagic.c,v 1.262 2018/06/22 20:39:50 christos Exp $")
 +FILE_RCSID("@(#)$File: softmagic.c,v 1.279 2019/02/27 16:52:23 christos Exp $")
- #endif /* lint */
-
+ #endif	/* lint */
+ 
  #include "magic.h"
 @@ -2063,6 +2063,29 @@ magiccheck(struct magic_set *ms, struct magic *m)
-                slen = MIN(m->vallen, sizeof(m->value.s));
-                l = 0;
-                v = 0;
+ 		slen = MIN(m->vallen, sizeof(m->value.s));
+ 		l = 0;
+ 		v = 0;
 +#ifdef HAVE_MEMMEM
-+               if (slen > 0 && m->str_flags == 0) {
-+                       const char *found;
-+                       if (m->str_range != 0
-+                           && ms->search.s_len >= m->str_range + slen) {
-+                               found = memmem(ms->search.s,
-+                                   m->str_range + slen, m->value.s, slen);
-+                       } else {
-+                               found = memmem(ms->search.s,
-+                                   ms->search.s_len, m->value.s, slen);
-+                               if (!found)
-+                                       return 0;
-+                       }
-+                       if (!found) {
-+                               v = 1;
-+                       } else {
-+                               idx = found - ms->search.s;
-+                               ms->search.offset += idx;
-+                               ms->search.rm_len = ms->search.s_len - idx;
-+                       }
-+                       break;
-+               }
++		if (slen > 0 && m->str_flags == 0) {
++			const char *found;
++			if (m->str_range != 0
++			    && ms->search.s_len >= m->str_range + slen) {
++				found = memmem(ms->search.s,
++				    m->str_range + slen, m->value.s, slen);
++			} else {
++				found = memmem(ms->search.s,
++				    ms->search.s_len, m->value.s, slen);
++				if (!found)
++					return 0;
++			}
++			if (!found) {
++				v = 1;
++			} else {
++				idx = found - ms->search.s;
++				ms->search.offset += idx;
++				ms->search.rm_len = ms->search.s_len - idx;
++			}
++			break;
++		}
 +#endif
-
-                for (idx = 0; m->str_range == 0 || idx < m->str_range; idx++) {
-                        if (slen + idx > ms->search.s_len)
---
+ 
+ 		for (idx = 0; m->str_range == 0 || idx < m->str_range; idx++) {
+ 			if (slen + idx > ms->search.s_len)
+-- 
 2.19.1
 
