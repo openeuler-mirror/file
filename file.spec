@@ -1,25 +1,12 @@
 Name:          file
-Version:       5.34
-Release:       9
+Version:       5.38
+Release:       1
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
 Source0:       ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 
 Patch0:        0000-file-localmagic.patch
-
-Patch1:        0001-file-4.17-rpm-name.patch
-Patch2:        0002-file-5.04-volume_key.patch
-
-Patch6000:     6000-fix-leak-on-error-found-by-coverity.patch
-Patch6001:     6001-PR-25-cbiedl-Avoid-strength-underflow.patch
-Patch6002:     6002-Fix-indirect-offset-overflow-calculation-B.-Watson.patch
-
-Patch3:        0003-file-5.34-readelf.patch
-
-Patch6003:     6003-CVE-2019-18218.patch
-Patch6004:     6004-Use-memmem-to-speed-up-searches-if-available-Michael.patch
-Patch6005:     6005-Simplify-and-always-return-if-not-found-found-by-OSS.patch
 
 Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: autoconf automake libtool git zlib-devel
@@ -161,6 +148,12 @@ cd %{py3dir}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Jan 10 2020 Huangzheng <huangzheng22@huawei.com> - 5.38-1
+- Type:enhancemnet
+- ID:NA
+- SUG:restart
+- DESCi:upgrade package
+
 * Thu Dec 26 2019 openEuler Buildteam <buildteam@openeuler.org> - 5.34-9
 - reupload patches
 
