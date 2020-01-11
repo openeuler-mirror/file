@@ -51,7 +51,7 @@ index e395854..ecc1214 100644
 --- a/src/apprentice.c
 +++ b/src/apprentice.c
 @@ -454,7 +454,7 @@ apprentice_1(struct magic_set *ms, const char *fn, int action)
- 	if (map == (struct magic_map *)-1)
+ 	if (map == RCAST(struct magic_map *, -1))
  		return -1;
  	if (map == NULL) {
 -		if (ms->flags & MAGIC_CHECK)
