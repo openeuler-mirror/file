@@ -1,6 +1,6 @@
 Name:          file
 Version:       5.38
-Release:       1
+Release:       2
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
@@ -108,6 +108,9 @@ cd %{py3dir}
 
 %ldconfig_scriptlets libs
 
+%check
+make check
+
 %files
 %doc ChangeLog README
 %license COPYING
@@ -148,11 +151,17 @@ cd %{py3dir}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Sat Mar 28 2020 hy <eulerstoragemt@huawei.com> - 5.38-2
+- Type:enhancemnet
+- ID:NA
+- SUG:restart
+- DESC:add make check
+
 * Fri Jan 10 2020 Huangzheng <huangzheng22@huawei.com> - 5.38-1
 - Type:enhancemnet
 - ID:NA
 - SUG:restart
-- DESCi:upgrade package
+- DESC:upgrade package
 
 * Thu Dec 26 2019 openEuler Buildteam <buildteam@openeuler.org> - 5.34-9
 - reupload patches
