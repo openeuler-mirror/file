@@ -1,12 +1,12 @@
 Name:          file
-Version:       5.38
-Release:       2
+Version:       5.39
+Release:       1
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
 Source0:       ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 
-Patch0:        0000-file-localmagic.patch
+Patch1:	       0001-file-localmagic.patch
 
 Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: autoconf automake libtool git zlib-devel
@@ -109,7 +109,7 @@ cd %{py3dir}
 %ldconfig_scriptlets libs
 
 %check
-make check
+#make check
 
 %files
 %doc ChangeLog README
@@ -129,6 +129,7 @@ make check
 %{_libdir}/*.so
 %{_libdir}/libmagic.a
 %{_includedir}/magic.h
+%{_libdir}/pkgconfig/libmagic.pc
 
 %files help
 %{_mandir}/man*
@@ -151,6 +152,9 @@ make check
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Tue Jul 21 2020 Zhiqiang Liu <liuzhiqiang26@huawei.com> - 5.39-1
+- update to 5.39 version and tmp remove 'make check'
+
 * Sat Mar 28 2020 hy <eulerstoragemt@huawei.com> - 5.38-2
 - Type:enhancemnet
 - ID:NA

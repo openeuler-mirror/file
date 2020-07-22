@@ -1,4 +1,4 @@
-From f25107f625e88726e8ae9d4963573b5a0dda8f4c Mon Sep 17 00:00:00 2001
+From ab2220a8d4c1b52d12e9f3e0fa7a132e30849ee5 Mon Sep 17 00:00:00 2001
 From: Jan Kaluza <hanzz.k@gmail.com>
 Date: Thu, 15 Dec 2011 16:15:41 +0100
 Subject: [PATCH] file-localmagic.patch
@@ -24,7 +24,7 @@ index 0000000..283a863
 +# Insert here your local magic data. Format is described in magic(5).
 +
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 155aec4..0f22539 100644
+index 3f67f2c..b43cb8e 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
 @@ -1,4 +1,4 @@
@@ -34,10 +34,10 @@ index 155aec4..0f22539 100644
  nodist_include_HEADERS = magic.h
  
 diff --git a/src/Makefile.in b/src/Makefile.in
-index b6eeb20..78dce55 100644
+index 59f3b5e..a8f56cf 100644
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -337,7 +337,7 @@ target_alias = @target_alias@
+@@ -356,7 +356,7 @@ target_alias = @target_alias@
  top_build_prefix = @top_build_prefix@
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
@@ -47,12 +47,12 @@ index b6eeb20..78dce55 100644
  nodist_include_HEADERS = magic.h
  AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
 diff --git a/src/apprentice.c b/src/apprentice.c
-index e395854..ecc1214 100644
+index 1437bcc..b609dd1 100644
 --- a/src/apprentice.c
 +++ b/src/apprentice.c
-@@ -454,7 +454,7 @@ apprentice_1(struct magic_set *ms, const char *fn, int action)
- 	if (map == RCAST(struct magic_map *, -1))
- 		return -1;
+@@ -460,7 +460,7 @@ apprentice_1(struct magic_set *ms, const char *fn, int action)
+ #ifndef COMPILE_ONLY
+ 	map = apprentice_map(ms, fn);
  	if (map == NULL) {
 -		if (ms->flags & MAGIC_CHECK)
 +		if (ms->flags & MAGIC_CHECK && strcmp("/etc/magic", fn) != 0)
@@ -60,5 +60,5 @@ index e395854..ecc1214 100644
  		map = apprentice_load(ms, fn, action);
  		if (map == NULL)
 -- 
-2.5.5
+1.8.3.1
 
