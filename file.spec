@@ -1,6 +1,6 @@
 Name:          file
 Version:       5.39
-Release:       1
+Release:       2
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
@@ -109,7 +109,7 @@ cd %{py3dir}
 %ldconfig_scriptlets libs
 
 %check
-#make check
+make check
 
 %files
 %doc ChangeLog README
@@ -152,6 +152,9 @@ cd %{py3dir}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Sat Jul 25 2020 Zhiqiang Liu <liuzhiqiang26@huawei.com> - 5.39-2
+- enable make check
+
 * Tue Jul 21 2020 Zhiqiang Liu <liuzhiqiang26@huawei.com> - 5.39-1
 - update to 5.39 version and tmp remove 'make check'
 
