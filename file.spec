@@ -126,7 +126,6 @@ cd %{py3dir}
 %{_libdir}/*.so
 %{_libdir}/libmagic.a
 %{_includedir}/magic.h
-%{_libdir}/pakgconfig/libmagic.pc
 
 %files help
 %{_mandir}/man*
