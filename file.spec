@@ -149,6 +149,9 @@ cd %{py3dir}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Thu Jul 30 2020 yanglongkang <yanglongkang@huawei.com> - 5.39-1
+- update to 5.39 version
+
 * Fri Jan 10 2020 Huangzheng <huangzheng22@huawei.com> - 5.38-1
 - Type:enhancemnet
 - ID:NA
