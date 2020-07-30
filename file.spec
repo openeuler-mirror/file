@@ -1,12 +1,12 @@
 Name:          file
-Version:       5.38
+Version:       5.39
 Release:       1
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
 Source0:       ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 
-Patch0:        0000-file-localmagic.patch
+Patch1:        0001-file-localmagic.patch
 
 Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: autoconf automake libtool git zlib-devel
@@ -126,6 +126,7 @@ cd %{py3dir}
 %{_libdir}/*.so
 %{_libdir}/libmagic.a
 %{_includedir}/magic.h
+%{_libdir}/pakgconfig/libmagic.pc
 
 %files help
 %{_mandir}/man*
