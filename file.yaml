@@ -1,4 +1,4 @@
 version_control: github
 src_repo: file/file
-tag_prefix: FILE5
-seperator: 
+tag_prefix: FILE
+seperator: "_"
