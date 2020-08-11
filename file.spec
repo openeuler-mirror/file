@@ -1,6 +1,6 @@
 Name:          file
 Version:       5.39
-Release:       2
+Release:       3
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
@@ -152,6 +152,9 @@ make check
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Mon Aug 10 2020 volcanodragon <linfeilong@huawei.com> - 5.39-3
+- update yaml file
+
 * Sat Jul 25 2020 Zhiqiang Liu <liuzhiqiang26@huawei.com> - 5.39-2
 - enable make check
 
