@@ -1,12 +1,13 @@
 Name:          file
 Version:       5.39
-Release:       3
+Release:       4
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
 Source0:       ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 
-Patch1:	       0001-file-localmagic.patch
+Patch1: 0001-file-localmagic.patch
+Patch2: 0002-improve-detection-of-static-pie-binaries.patch 
 
 Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: autoconf automake libtool git zlib-devel
@@ -152,6 +153,9 @@ make check
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Mon Aug 24 2020 lihaotian <lihaotian9@huawei.com> - 5.39-4
+- improve detection of static-pie binaries
+
 * Mon Aug 10 2020 volcanodragon <linfeilong@huawei.com> - 5.39-3
 - update yaml file
 
