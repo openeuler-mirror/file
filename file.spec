@@ -1,6 +1,6 @@
 Name:          file
 Version:       5.39
-Release:       4
+Release:       5
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
@@ -44,17 +44,6 @@ Requires: man
 %description help
 This contains man files for the using of file
 
-%package -n python2-magic
-Summary: Python 2 bindings for the libmagic API
-Requires: %{name} = %{version}-%{release}
-BuildRequires: python2-devel
-BuildArch: noarch
-%{?python_provide:%python_provide python2-magic}
-
-%description -n python2-magic
-This package contains the Python 2 bindings to access the libmagic
-API. The libmagic library is also used by the familiar file(1) command.
-
 %package -n python3-magic
 Summary: Python 3 bindings for the libmagic API
 Requires: %{name} = %{version}-%{release}
@@ -84,8 +73,6 @@ sed -i 's/^hardcode_libdir_flag_spec=.*/hardcode_libdir_flag_spec=""/g' libtool
 sed -i 's/^runpath_var=LD_RUN_PATH/runpath_var=DIE_RPATH_DIE/g' libtool
 export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/src/.libs
 make %{?_smp_mflags} V=1
-cd python
-CFLAGS="%{optflags}" %{__python2} setup.py build
 cd %{py3dir}
 CFLAGS="%{optflags}" %{__python3} setup.py build
 
@@ -101,8 +88,6 @@ cat magic/Magdir/* > ${RPM_BUILD_ROOT}%{_datadir}/misc/magic
 ln -s misc/magic ${RPM_BUILD_ROOT}%{_datadir}/magic
 ln -s ../magic ${RPM_BUILD_ROOT}%{_datadir}/file/magic
 
-cd python
-%{__python2} setup.py install -O1 --skip-build --root ${RPM_BUILD_ROOT}
 cd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root ${RPM_BUILD_ROOT}
 %{__install} -d ${RPM_BUILD_ROOT}%{_datadir}/%{name}
@@ -135,15 +120,6 @@ make check
 %files help
 %{_mandir}/man*
 
-%files -n python2-magic
-%doc python/README.md python/example.py
-%{!?_licensedir:%global license %%doc}
-%license COPYING
-%{python2_sitelib}/magic.py
-%{python2_sitelib}/magic.pyc
-%{python2_sitelib}/magic.pyo
-%{python2_sitelib}/*egg-info
-
 %files -n python3-magic
 %doc python/README.md python/example.py
 %{!?_licensedir:%global license %%doc}
@@ -153,6 +129,9 @@ make check
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Oct 30 2020 yanglongkang <yanglongkang@huawei.com> - 5.39-5
+- remove python2 dependency
+
 * Mon Aug 24 2020 lihaotian <lihaotian9@huawei.com> - 5.39-4
 - improve detection of static-pie binaries
 
