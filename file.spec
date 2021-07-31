@@ -1,6 +1,6 @@
 Name:          file
 Version:       5.39
-Release:       5
+Release:       6
 Summary:       A tool to identify the type of a particular file type
 License:       BSD
 URL:           http://www.darwinsys.com/file/
@@ -10,7 +10,7 @@ Patch1: 0001-file-localmagic.patch
 Patch2: 0002-improve-detection-of-static-pie-binaries.patch 
 
 Requires: %{name}-libs = %{version}-%{release}
-BuildRequires: autoconf automake libtool git zlib-devel
+BuildRequires: autoconf automake libtool zlib-devel
 
 %description
 The program checks to see if the file is empty,or if
@@ -55,7 +55,7 @@ This package contains the Python 3 bindings to access to the libmagic
 API. The libmagic library is also used by the familiar file(1) command.
 
 %prep
-%autosetup -p1 -S git
+%autosetup -p1
 
 iconv doc/libmagic.man -f iso-8859-1 -t utf-8 -o doc/libmagic.man_
 touch -r doc/libmagic.man doc/libmagic.man_
@@ -129,6 +129,9 @@ make check
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 5.39-6
+- DESC: delete -S git from %autosetup, and delete BuildRequires git
+
 * Fri Oct 30 2020 yanglongkang <yanglongkang@huawei.com> - 5.39-5
 - remove python2 dependency
 
