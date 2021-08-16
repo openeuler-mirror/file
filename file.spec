@@ -94,8 +94,10 @@ cd %{py3dir}
 
 %ldconfig_scriptlets libs
 
+%ifnarch riscv64
 %check
 make check
+%endif
 
 %files
 %doc ChangeLog README
@@ -129,6 +131,9 @@ make check
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Mon Aug 16 2021 PandaGix <pandagix@gitee.com> -5.39-6
+- disable make check for riscv64 during version upgrade from 5.38 to 5.39
+
 * Fri Jul 30 2021 chenyanpanHW <chenyanpan@huawei.com> - 5.39-6
 - DESC: delete -S git from %autosetup, and delete BuildRequires git
 
